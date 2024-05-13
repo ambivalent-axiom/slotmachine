@@ -15,7 +15,6 @@
         newValue('7', 2, 9),
         newValue('6', 1, 10),
     ];
-
     $lines3 = [
         [
             [0,0],[0,1],[0,2] //top➙
@@ -94,5 +93,3 @@
             echo "Sorry, you don't have enough money to play again.\n";
         }
     }
-
-

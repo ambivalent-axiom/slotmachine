@@ -21,7 +21,6 @@ class Board {
     }
     public function printBoard(array $board): void
     {
-
         echo str_repeat("+---+", $this->size[0]) . "\n";
         for($i = 0; $i < $this->size[1]; $i++) {
             for($j = 0; $j < $this->size[0]; $j++) {
@@ -31,7 +30,7 @@ class Board {
             echo str_repeat("+---+", $this->size[0]) . "\n";
         }
     }
-    public function checkWin(array $board, int $bet): int //returns bet multiplier
+    public function checkWin(array $board, int $bet): int //returns bet multiplier ++ prints WIN notifications
     {
         $winSum = 0;
         //this collects the line value as sequence in string
