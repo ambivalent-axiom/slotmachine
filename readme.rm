@@ -1,0 +1,19 @@
+13.05.2024.
+Slots game by ambax. Due in Codelex course as homework.
+
+Consists of player and board objects.
+
+Board takes size [x, y], array values and array winlines as arguments.
+
+Size are not specifically defined, board will adjust to your preset. However size is dependant
+on winLines. winLines are lines in slots, from where the winning matches are taken.
+
+Currently there are Line presets for 2 types of board sizes: 3X3 and 5X3.
+
+You can add values/symbols to the slot machine by pushing the newValue() into $values.
+As arguments ir takes symbol as string, it's multiplier value as integer and it's chance weight as integer.
+Chance weight determines how ofter this symbol will be pushed into the board. The higher the value,
+the higher the chance for symbol to appear.
+
+Bets are in stepsizes, each stepsize correspomds to 5credits, amount of steps determine win multiplication.
+
