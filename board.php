@@ -42,10 +42,11 @@ class Board {
                 $y = $element[1];
                 $string .= $board[$x][$y];
             }
-//at this point we have a full string to validate with win condition, send it to calcWinnings to get integer of funds if won.
+
             $win = $this->calcWinnings($string); //integer
             $winSum += $win;
-//te ir pieejama win kombinācija un var viņu kaut kā vizualizēt.
+
+            //WIN visualization
             if($win > 0) {
                 echo "\n" .
                     str_repeat("**", $this->size[0]) .

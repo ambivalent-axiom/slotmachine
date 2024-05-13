@@ -2,7 +2,6 @@
     include "board.php";
     include "player.php";
     include "functions.php";
-//still missing weights function
 
     $values = [
         newValue('A', 4, 2),
@@ -29,7 +28,6 @@
             [2,0],[1,1],[0,2] //➚
         ],
     ];
-
     $lines5 = [
         [
             [0,0],[0,1],[0,2],[0,3],[0,4] //top➙
@@ -69,14 +67,11 @@
         ]
     ];
 
-
-    echo colorize("", 31);
-
 //init
+    echo colorize("", 31);
     $player = register();
     $gameOn = true;
     $board = chooseMachine($values, $lines3, $lines5);
-
 //game
     while($gameOn) {
         cls();
@@ -84,7 +79,6 @@
         $player->takeBet();
         $player->money -= $player->bet;
         $spin = $board->createBoard();
-        //print board/dump board
         $board->printBoard($spin);
         $win = $board->checkWin($spin, $player->bet);
         echo "Bet: " . $player->bet . " Win: " . $player->bet * $win . "\n";

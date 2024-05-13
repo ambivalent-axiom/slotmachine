@@ -65,7 +65,7 @@ function weightedRandom(array $values) {
 function colorize(string $string, int $color): string {
     return "[{$color}m{$string}[0m";
 }
-function chooseMachine(&$values, &$lines3, &$lines5): Board {
+function chooseMachine(&$values, &$lines3, &$lines5) {
     while(true) {
         echo "Which machine would You like to play?\n";
         echo "1: (3X3)\n";
