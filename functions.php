@@ -62,3 +62,25 @@ function weightedRandom(array $values) {
     }
     return null;
 }
+function colorize(string $string, int $color): string {
+    return "[{$color}m{$string}[0m";
+}
+function chooseMachine(&$values, &$lines3, &$lines5): Board {
+    while(true) {
+        echo "Which machine would You like to play?\n";
+        echo "1: (3X3)\n";
+        echo "2: (5X3)\n";
+        $input = readline("Choice: ");
+        if(is_numeric($input) && $input >= 1 && $input<= 2) {
+            break;
+        }
+        echo "Input must be integer between 1 and 2\n";
+    }
+    switch ($input) {
+        case 1:
+            return new Board([3, 3], $values, $lines3);
+        case 2:
+            return new Board([5, 3], $values, $lines5);
+    }
+    return null;
+}

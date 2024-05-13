@@ -31,7 +31,7 @@ class Board {
             echo str_repeat("+---+", $this->size[0]) . "\n";
         }
     }
-    public function checkWin(array $dumpBoard): int //returns bet multiplier
+    public function checkWin(array $board, int $bet): int //returns bet multiplier
     {
         $winSum = 0;
         //this collects the line value as sequence in string
@@ -40,15 +40,22 @@ class Board {
             foreach ($line as $element) {
                 $x = $element[0];
                 $y = $element[1];
-                $string .= $dumpBoard[$x][$y];
+                $string .= $board[$x][$y];
             }
 //at this point we have a full string to validate with win condition, send it to calcWinnings to get integer of funds if won.
             $win = $this->calcWinnings($string); //integer
             $winSum += $win;
 //te ir pieejama win kombinācija un var viņu kaut kā vizualizēt.
-//            if($win > 0) {
-//                var_dump($line); //šeit ir vinnesta līnija
-//            }
+            if($win > 0) {
+                echo "\n" .
+                    str_repeat("**", $this->size[0]) .
+                    "WIN" .
+                    str_repeat("**", $this->size[0]) .
+                    "\n";
+                $wincombo = $this->visualizeGrid($board, $line);
+                $this->printBoard($wincombo);
+                echo $string . " " . $win * $bet . "\n";
+            }
         }
         return $winSum;
     }
@@ -76,5 +83,13 @@ class Board {
             array_push($keys, $value->name);
         }
         return $keys;
+    }
+
+    public function visualizeGrid(array $board, array $line): array
+    {
+        foreach ($line as $element) {
+            $board[$element[0]][$element[1]] = colorize("*", 35);
+        }
+        return $board;
     }
 }
