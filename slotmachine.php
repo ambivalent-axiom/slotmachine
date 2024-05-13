@@ -4,11 +4,16 @@
     include "functions.php";
 
     $values = [
-        newValue('A', 4, 2),
-        newValue('K', 3, 3),
-        newValue('Q', 2, 4),
-        newValue('J', 1, 5),
-        newValue('W', 5, 1)
+        newValue('A', 9, 2),
+        newValue('K', 8, 3),
+        newValue('Q', 7, 4),
+        newValue('J', 6, 5),
+        newValue('W', 10, 1),
+        newValue('$', 5, 6),
+        newValue('9', 4, 7),
+        newValue('8', 3, 8),
+        newValue('7', 2, 9),
+        newValue('6', 1, 10),
     ];
 
     $lines3 = [
@@ -80,9 +85,9 @@
         $player->money -= $player->bet;
         $spin = $board->createBoard();
         $board->printBoard($spin);
-        $win = $board->checkWin($spin, $player->bet);
-        echo "Bet: " . $player->bet . " Win: " . $player->bet * $win . "\n";
-        $player->money += $player->bet * $win;
+        $win = $board->checkWin($spin, $player->betMuliplier);
+        echo "Bet: " . $player->bet . " Win: " . $player->betMuliplier * $win . "\n";
+        $player->money += $player->betMuliplier * $win;
         $gameOn = playAgain();
         if($player->money <= 0) {
             $gameOn = false;

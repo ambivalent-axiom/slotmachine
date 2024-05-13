@@ -64,7 +64,7 @@ class Board {
         $firstChar = $line[0];
         $win = 0;
 //saskaitam vienādos līdz pārtrūkst vienādo simbolu virkne
-        for ($i = 1; $i < $this->size[1]; $i++) {
+        for ($i = 1; $i < $this->size[0]; $i++) {
             $nextChar = $line[$i];
             if ($nextChar !== $firstChar) {
                 break;
@@ -85,7 +85,6 @@ class Board {
         }
         return $keys;
     }
-
     public function visualizeGrid(array $board, array $line): array
     {
         foreach ($line as $element) {
