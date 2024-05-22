@@ -1,5 +1,8 @@
 <?php
 class Board {
+    private array $size;
+    private array $values;
+    private array $winLines;
     public function __construct(array $size, array $values, array $winLines)
     {
         $this->size = $size;
@@ -47,22 +50,22 @@ class Board {
 
             //WIN visualization
             if($win > 0) {
-                echo "\n" .
+                echo "\n" . " " .
                     str_repeat("**", $this->size[0]) .
                     "WIN" .
                     str_repeat("**", $this->size[0]) .
                     "\n";
                 $wincombo = $this->visualizeGrid($board, $line);
                 $this->printBoard($wincombo);
-                echo $string . " " . $win * $bet . "\n";
+                echo "Combo: " . $string . " Win: " . $win * $bet . "\n";
             }
         }
         return $winSum;
     }
-    function calcWinnings(string $line): int {
+    private function calcWinnings(string $line): int {
         $firstChar = $line[0];
         $win = 0;
-//saskaitam vienādos līdz pārtrūkst vienādo simbolu virkne
+        //saskaitam vienādos līdz pārtrūkst vienādo simbolu virkne
         for ($i = 1; $i < $this->size[0]; $i++) {
             $nextChar = $line[$i];
             if ($nextChar !== $firstChar) {
@@ -70,7 +73,7 @@ class Board {
             }
             $win = $i;
         }
-//šeit sareizinam ar to, cik vienādi simboli sakrita
+        //šeit sareizinam ar to, cik vienādi simboli sakrita
         $valueIndex = array_search($firstChar, $this->getValueKeys());
         if($win > 0) {
             return  ($win+1) * $this->values[$valueIndex]->multiplier; //number of chars X multiplier of value
@@ -90,5 +93,9 @@ class Board {
             $board[$element[0]][$element[1]] = colorize("*", 35);
         }
         return $board;
+    }
+    public function getSize(): int
+    {
+        return $this->size[0];
     }
 }

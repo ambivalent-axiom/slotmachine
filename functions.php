@@ -23,13 +23,16 @@ function register(): Player {
     }
     return new Player($name, $money*100);
 }
-function playAgain(): bool
+function playAgain(): string
 {
-    $userInput = strtolower(readline("Still wanna play? Y?: "));
-    if($userInput === "y" || $userInput === "yes"){
-        return true;
+    $userInput = strtolower(readline("[(E)xit] [(B)et] or Spin: "));
+    if($userInput[0] === "e" || $userInput === "exit"){
+        return 'exit';
     }
-    return false;
+    if($userInput[0] === "b" || $userInput === "bet"){
+        return 'bet';
+    }
+    return 'spin';
 }
 function newValue(string $name, int $multiplier, int $weight): stdClass {
     $value = new stdClass();

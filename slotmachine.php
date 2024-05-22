@@ -1,6 +1,6 @@
 <?php
-    include "board.php";
-    include "player.php";
+    include "Board.php";
+    include "Player.php";
     include "functions.php";
 
     $values = [
@@ -9,10 +9,10 @@
         newValue('Q', 7, 4),
         newValue('J', 6, 5),
         newValue('W', 10, 1),
-        newValue('$', 5, 6),
-        newValue('9', 4, 7),
-        newValue('8', 3, 8),
-        newValue('7', 2, 9),
+        newValue('$', 2, 5),
+        newValue('9', 1, 10),
+        newValue('8', 1, 10),
+        newValue('7', 1, 10),
         newValue('6', 1, 10),
     ];
     $lines3 = [
@@ -76,20 +76,42 @@
     $player = register();
     $gameOn = true;
     $board = chooseMachine($values, $lines3, $lines5);
+    $takeBet = false;
 //game
     while($gameOn) {
         cls();
-        echo $player->name . " credit: " . $player->money . "\n";
-        $player->takeBet();
-        $player->money -= $player->bet;
+        if( ! $takeBet) {
+            $player->takeBet();
+            $takeBet = true;
+        }
+        $player->subtractMoney($player->getBet());
         $spin = $board->createBoard();
+        echo "\n" .
+            str_repeat("::", $board->getSize()) .
+            "SPIN" .
+            str_repeat("::", $board->getSize()) .
+            "\n";
         $board->printBoard($spin);
-        $win = $board->checkWin($spin, $player->betMuliplier);
-        echo "Bet: " . $player->bet . " Win: " . $player->betMuliplier * $win . "\n";
-        $player->money += $player->betMuliplier * $win;
-        $gameOn = playAgain();
-        if($player->money <= 0) {
+        $win = $board->checkWin($spin, $player->getBetMultiplier());
+        echo "Bet: " . $player->getBet() . " Win Total: " . $player->getBetMultiplier() * $win . "\n";
+        $player->addMoney($player->getBetMultiplier() * $win);
+        echo $player->getName() . " credit: " . $player->getMoney() . "\n";
+        $gameCheck = playAgain();
+
+        if($gameCheck === 'exit') {
+            $gameOn = false;
+            echo "Thank You for playing!\n";
+            echo "Your withdrawals: " . number_format($player->getMoney() / 100, 2) . "Eur\n";
+        }
+        if($gameCheck === 'bet') {
+            $takeBet = false;
+        }
+        if($player->getMoney() < 5) {
             $gameOn = false;
             echo "Sorry, you don't have enough money to play again.\n";
         }
+        if($player->getMoney() < $player->getBet()) {
+            $takeBet = false;
+        }
+
     }
